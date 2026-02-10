@@ -57,7 +57,7 @@ app.get('/leaderboard', async (req, res) => {
                 SUM(deals) AS total_deals
             FROM sales
             GROUP BY agent_name
-            ORDER BY total_sales DESC, total_deals DESC;
+            ORDER BY total_sales DESC, total_deals DESC, agent_name ASC;
         `;
 
         const result = await pool.query(query);
