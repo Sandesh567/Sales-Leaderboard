@@ -37,8 +37,8 @@ A robust backend system designed to aggregate sales data and generate a real-tim
 - **Method:** `POST`
 - **Body:**
 ```json
-{
-  "agent_name": "John Doe",
-  "amount": 5000,
-  "deals": 2
+{ 
+  "agent_name": "Laxmi Ghimire",
+  "amount": 30000,
+  "deals": 4 
 }
