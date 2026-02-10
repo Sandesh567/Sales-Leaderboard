@@ -1,3 +1,4 @@
+const path = require('path');
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
@@ -6,6 +7,8 @@ const cors = require('cors');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(cors());
 
@@ -45,13 +48,13 @@ app.post('/api/sales', async (req, res) => {
 });
 
 
-app.get('/api/leaderboard', async (req, res) => {
+app.get('/leaderboard', async (req, res) => {
     try {
         const query = `
             SELECT
                 agent_name,
-                SUM(amount) as total_sales,
-                SUM(deals) as total_deals
+                SUM(amount) AS total_sales,
+                SUM(deals) AS total_deals
             FROM sales
             GROUP BY agent_name
             ORDER BY total_sales DESC, total_deals DESC;
@@ -67,7 +70,7 @@ app.get('/api/leaderboard', async (req, res) => {
                 totalDeals: parseInt(row.total_deals)
             };
         });
-        res.json(leaderboard);
+        res.render('index', { leaderboard });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
