@@ -62,7 +62,7 @@ app.get('/leaderboard', async (req, res) => {
 
         const result = await pool.query(query);
 
-        const leaderboard = result.rows.map((row, index) => {
+        const agents = result.rows.map((row, index) => {
             return {
                 rank: index + 1,
                 name: row.agent_name,
@@ -70,7 +70,7 @@ app.get('/leaderboard', async (req, res) => {
                 totalDeals: parseInt(row.total_deals)
             };
         });
-        res.render('index', { leaderboard });
+        res.render('index', { agents });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
